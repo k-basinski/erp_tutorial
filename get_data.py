@@ -7,23 +7,17 @@ fname = 'mf_02_04092024_Gosia.bdf'
 raw = mne.io.read_raw_bdf(fdir+fname)
 
 # %%
-raw.plot()
-# %%
 raw.crop(0, 60)
 raw.resample(100, n_jobs=-1)
 
 # %%
 raw.plot()
 # %%
-raw.save('data/raw.fif')
+raw.save('data/raw.fif', overwrite=True)
 # %%``
 # epochs
 epochs = mne.read_epochs(fdir+'preprocessed/1-epo.fif')
-epochs.set_eeg_reference('REST')
-# %%
-epochs['harmonic/pitch']
-# %%
-epochs['harmonic/std']
+epochs.set_eeg_reference(['TP7', 'TP8'])
 # %%
 ep = epochs['harmonic/pitch']
 ep = epochs['harmonic/pitch'].copy().resample(100, n_jobs=-1)
